@@ -54,15 +54,18 @@
 // 21.   How have other people solved this problem?
 
 function stringifyNumbers(obj) {
+  let newObj = {};
   // draw recursion stack
   // main logic
   for (let key in obj) {
     // base case
-    if (typeof obj[key] === "object") {
-      stringifyNumbers(obj[key]);
-    } else if (typeof obj[key] === "number") {
-      let res = obj[key].toString();
+    if (typeof obj[key] === "number") {
+      newObj[key] = obj[key].toString();
+    } else if (typeof obj[key] === "object" && !Array.isArray(obj[key])) {
+      newObj[key] = stringifyNumbers(obj[key]);
+    } else {
+      newObj[key] = obj[key];
     }
   }
-  return res;
+  return newObj;
 }
