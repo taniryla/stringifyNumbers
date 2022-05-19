@@ -55,11 +55,14 @@
 
 function stringifyNumbers(obj) {
   // draw recursion stack
-  // base case
   // main logic
   for (let key in obj) {
-    if (typeof obj[key] === "number") {
-      obj[key].toString();
+    // base case
+    if (typeof obj[key] === "object") {
+      stringifyNumbers(obj[key]);
+    } else if (typeof obj[key] === "number") {
+      let res = obj[key].toString();
     }
   }
+  return res;
 }
